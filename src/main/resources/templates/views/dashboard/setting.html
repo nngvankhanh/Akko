@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modernize Free</title>
+  <link rel="shortcut icon" type="image/png" href="/dashboard/images/logos/akko.png.png" />
+  <link rel="stylesheet" href="/dashboard/css/styles.min.css" />
+
+</head>
+
+<body>
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <div th:replace="/views/dashboard/layout::aside"></div>
+    <!--  Sidebar End -->
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+      <!--  Header -->
+      <div class="container-fluid">
+        <div class="card">
+          <div class="card-body">
+            <form>
+              <div class="form-row">
+                <div class="form-group ">
+                  <label for="inputEmail4">Tài khoản</label>
+                  <input type="email" class="form-control" id="inputEmail4" >
+                </div>
+                <div class="form-group ">
+                  <label for="inputPassword4">Mật khẩu</label>
+                  <input type="password" class="form-control" id="inputPassword4" >
+                </div>
+                <div class="form-group ">
+                  <label for="inputAddress">Địa chỉ</label>
+                  <input type="text" class="form-control" id="inputAddress" >
+                </div>
+                <div class="form-group">
+                  <label for="phone">Số điện thoại</label>
+                  <input type="number"  class="form-control" id="phone">
+                </div>
+              </div>
+              <div class="p-4 float-end me-4" >
+                <button type="submit" class="btn btn-primary">Lưu lại</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script src="/dashboard/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/dashboard/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/dashboard/js/sidebarmenu.js"></script>
+  <script src="/dashboard/js/app.min.js"></script>
+  <script src="/dashboard/libs/simplebar/dist/simplebar.js"></script>
+</body>
+
+</html>

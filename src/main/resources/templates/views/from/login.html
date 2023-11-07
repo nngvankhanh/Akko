@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/from/css/style.css" />
+    <script src="/from/js/from.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="center">
+        <h1>Login</h1>
+        <form>
+<!--            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"></div>-->
+<!--            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red"></div>-->
+<!--            <div th:text="${result}"></div>-->
+            <div class="txt_field">
+                <input type="email" id="email" required>
+                <span></span>
+                <label>Email</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" id="password" required>
+                <span></span>
+                <label>Password</label>
+            </div>
+            <input type="button" value="Sign Up" onclick="login()">
+            <div class="signup_link">
+                No Account ? <a th:href="@{/seller/register}">Register Here</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/dashboard/libs/jquery/dist/jquery.min.js"></script>
+</body>
+</html>

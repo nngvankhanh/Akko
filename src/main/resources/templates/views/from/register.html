@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/from/css/style.css" />
+    <link rel="stylesheet" href="/from/css/style.css" />
+    <script src="/from/js/from.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="center">
+        <h1>Register</h1>
+        <form>
+<!--            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"></div>-->
+<!--            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red"></div>-->
+<!--            <div th:text="${result}"></div>-->
+            <div class="txt_field">
+                <input type="email" name="email" required>
+                <span></span>
+                <label>Email</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" name="password" required>
+                <span></span>
+                <label>Password</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" name="confirmPassword" required>
+                <span></span>
+                <label>Confirm Password</label>
+            </div>
+            <input type="button" value="Sign Up" onclick="register()">
+            <div class="signup_link">
+                Have an Account ? <a th:href="@{/seller/login}">Login Here</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
