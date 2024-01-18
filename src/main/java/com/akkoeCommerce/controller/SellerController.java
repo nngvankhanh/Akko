@@ -1,22 +1,23 @@
 package com.akkoeCommerce.controller;
 
 import com.akkoeCommerce.service.SellerService;
-import com.akkoeCommerce.payload.request.LoginRequestDto;
-import com.akkoeCommerce.payload.request.ProductRequestDto;
-import com.akkoeCommerce.payload.request.RegisterRequestDto;
-import com.akkoeCommerce.payload.response.ProductResponseDto;
+import com.akkoeCommerce.payload.request.LoginRequest;
+import com.akkoeCommerce.payload.request.ProductRequest;
+import com.akkoeCommerce.payload.request.RegisterRequest;
+import com.akkoeCommerce.payload.response.ProductResponse;
 import com.akkoeCommerce.entity.Product;
 import com.akkoeCommerce.service.CategoryService;
 import com.akkoeCommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
-@RestController
+@Controller
 @RequestMapping("/seller")
 //@CrossOrigin("*")//http://..
 public class SellerController {
@@ -29,7 +30,7 @@ public class SellerController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView showHome() {
-        ModelAndView modelAndView = new ModelAndView("views/dashboard/index");
+        ModelAndView modelAndView = new ModelAndView("home");
         return modelAndView;
     }
 
@@ -46,8 +47,8 @@ public class SellerController {
     }
 
     @RequestMapping(value = "/manager/list", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<ProductResponseDto>> allProduct() {
-        Iterable<ProductResponseDto> productResponseDto = productService.findAll();
+    public ResponseEntity<Iterable<ProductResponse>> allProduct() {
+        Iterable<ProductResponse> productResponseDto = productService.findAll();
         return new ResponseEntity<>(productResponseDto,HttpStatus.OK);
     }
 
@@ -70,15 +71,15 @@ public class SellerController {
     }
 
     @RequestMapping(value = "/manager/save", method = RequestMethod.POST)
-    public ResponseEntity<?> save(@RequestBody ProductRequestDto productRequestDto) {
-        productService.save(productRequestDto);
+    public ResponseEntity<?> save(@RequestBody ProductRequest productRequest) {
+        productService.save(productRequest);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/manager/delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        ProductResponseDto productResponseDto = productService.findById(id).orElse(null);
-        if (productResponseDto == null) {
+        ProductResponse productResponse = productService.findById(id).orElse(null);
+        if (productResponse == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         productService.deleteById(id);
@@ -87,33 +88,34 @@ public class SellerController {
 
     @RequestMapping(value = "/manager/edit/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> edit(@PathVariable Long id) {
-        ProductResponseDto productResponseDto = productService.findById(id).orElse(null);
-        return new ResponseEntity<>(productResponseDto,HttpStatus.OK);
+        ProductResponse productResponse = productService.findById(id).orElse(null);
+        return new ResponseEntity<>(productResponse,HttpStatus.OK);
     }
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public ModelAndView showLogin(){
-        return new ModelAndView("views/from/login");
+        return new ModelAndView("views/dashboard/page/login");
     }
     @RequestMapping(value="/register", method = RequestMethod.GET)
     public ModelAndView showRegister(){
-        return new ModelAndView("views/from/register");
+        return new ModelAndView("views/dashboard/page/register");
     }
+
     @RequestMapping(value="/login", method = RequestMethod.POST)
-    public ModelAndView login(@RequestBody LoginRequestDto loginRequestDto){
-        boolean result = sellerService.isCheckEmailAndPassword(loginRequestDto.getEmail(), loginRequestDto.getPassword());
+    public ModelAndView login(@RequestBody LoginRequest loginRequest){
+        boolean result = sellerService.isCheckEmailAndPassword(loginRequest.getEmail(), loginRequest.getPassword());
         if(result){
             return new ModelAndView("redirect:/seller");
         }
         return new ModelAndView("redirect:/seller/login");
     }
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public ResponseEntity<?> register(@RequestBody RegisterRequestDto registerRequestDto){
+    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest){
         boolean result = false;
-        if(registerRequestDto.getConfirmPassword().equals(registerRequestDto.getPassword())){
-            result = sellerService.isCheckEmailAndPassword(registerRequestDto.getEmail(),registerRequestDto.getPassword());
+        if(registerRequest.getConfirmPassword().equals(registerRequest.getPassword())){
+            result = sellerService.isCheckEmailAndPassword(registerRequest.getEmail(), registerRequest.getPassword());
             if(result){
-                sellerService.save(registerRequestDto);
+                sellerService.save(registerRequest);
                 return new ResponseEntity<>(result,HttpStatus.CREATED);
             }
         }

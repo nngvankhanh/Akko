@@ -1,5 +1,5 @@
 package com.akkoeCommerce.payload.response;
 
-public class SellerResponseDto {
+public class SellerResponse {
     private Long id;
 }

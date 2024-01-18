@@ -6,8 +6,7 @@ import com.akkoeCommerce.repository.ProductRepository;
 import com.akkoeCommerce.repository.SellerProductRepository;
 import com.akkoeCommerce.repository.SellerRepository;
 import com.akkoeCommerce.service.SellerService;
-import com.akkoeCommerce.payload.request.LoginRequestDto;
-import com.akkoeCommerce.payload.request.RegisterRequestDto;
+import com.akkoeCommerce.payload.request.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,8 +34,8 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public void save(RegisterRequestDto registerRequestDto) {
-        Seller seller = sellerConverter.requestDtoToEntity(registerRequestDto);
+    public void save(RegisterRequest registerRequest) {
+        Seller seller = sellerConverter.requestDtoToEntity(registerRequest);
         sellerRepository.save(seller);
     }
 

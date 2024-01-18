@@ -1,8 +1,8 @@
 package com.akkoeCommerce.converter.Impl;
 
 import com.akkoeCommerce.converter.SellerProductConverter;
-import com.akkoeCommerce.payload.request.SellerProductRequestDto;
-import com.akkoeCommerce.payload.response.SellerProductResponseDto;
+import com.akkoeCommerce.payload.request.SellerProductRequest;
+import com.akkoeCommerce.payload.response.SellerProductResponse;
 import com.akkoeCommerce.entity.SellerProduct;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -15,22 +15,22 @@ import java.util.List;
 public class SellerProductConverterImpl implements SellerProductConverter {
 
     @Override
-    public Collection<SellerProductResponseDto> entityToResponseDto(Collection<SellerProduct> source) {
-        List<SellerProductResponseDto> list = new ArrayList<>();
-        SellerProductResponseDto sellerProductResponseDto = new SellerProductResponseDto();
+    public Collection<SellerProductResponse> entityToResponseDto(Collection<SellerProduct> source) {
+        List<SellerProductResponse> list = new ArrayList<>();
+        SellerProductResponse sellerProductResponse = new SellerProductResponse();
         for(SellerProduct sellerProduct : source){
-            sellerProductResponseDto.setProduct(sellerProduct.getProduct());
+            sellerProductResponse.setProduct(sellerProduct.getProduct());
 //            sellerProductResponseDto.setSeller(sellerProduct.getSeller());
-            list.add(sellerProductResponseDto);
+            list.add(sellerProductResponse);
         }
         return list;
     }
 
     @Override
-    public Collection<SellerProduct> requestDtoToEntity(Collection<SellerProductRequestDto> source) {
+    public Collection<SellerProduct> requestDtoToEntity(Collection<SellerProductRequest> source) {
         Collection<SellerProduct> sellerProducts = new ArrayList<>();
         SellerProduct sellerProduct = new SellerProduct();
-        for(SellerProductRequestDto sources : source){
+        for(SellerProductRequest sources : source){
             BeanUtils.copyProperties(sources,sellerProduct);
             sellerProducts.add(sellerProduct);
         }
@@ -38,12 +38,12 @@ public class SellerProductConverterImpl implements SellerProductConverter {
     }
 
     @Override
-    public SellerProductResponseDto entityToResponseDto(SellerProduct source) {
+    public SellerProductResponse entityToResponseDto(SellerProduct source) {
         return null;
     }
 
     @Override
-    public SellerProduct requestDtoToEntity(SellerProductRequestDto source) {
+    public SellerProduct requestDtoToEntity(SellerProductRequest source) {
         return null;
     }
 }

@@ -13,25 +13,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "CATEGORY")
-public class Category {
+@NoArgsConstructor
+@Table(name = "IMAGE")
+public class Image {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    @JsonIgnore
-//    @JsonManagedReference
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    Collection<Product> product;
-//    --------------------
-    @NotNull(message = "không được trống")
-    private String name;
+
+    @OneToMany(mappedBy = "image", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    List<Product> product;
+
+    private String urlFirst;
+    private String urlSecond;
+    private String urlThird;
+    private String urlFourth;
+    private String urlFifth;
 
 }

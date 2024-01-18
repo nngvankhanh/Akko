@@ -2,7 +2,7 @@ package com.akkoeCommerce.service.Impl;
 
 import com.akkoeCommerce.converter.ProductConverter;
 import com.akkoeCommerce.entity.SellerProduct;
-import com.akkoeCommerce.payload.request.ProductRequestDto;
+import com.akkoeCommerce.payload.request.ProductRequest;
 import com.akkoeCommerce.entity.Category;
 import com.akkoeCommerce.entity.Product;
 import com.akkoeCommerce.entity.Seller;
@@ -11,7 +11,7 @@ import com.akkoeCommerce.repository.ProductRepository;
 import com.akkoeCommerce.repository.SellerProductRepository;
 import com.akkoeCommerce.repository.SellerRepository;
 import com.akkoeCommerce.service.ProductService;
-import com.akkoeCommerce.payload.response.ProductResponseDto;
+import com.akkoeCommerce.payload.response.ProductResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,36 +37,47 @@ public class ProductServiceImpl implements ProductService {
     private SellerRepository sellerRepository;
 
     @Override
-    public Iterable<ProductResponseDto> findAll() {
+    public Iterable<ProductResponse> findAll() {
          Iterable<Product> products = productRepository.findAll();
-         List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
+         List<ProductResponse> productResponseList = new ArrayList<>();
          for(Product product : products){
-             ProductResponseDto productResponseDto= productConverter.entityToResponseDto(product);
-             productResponseDtoList.add(productResponseDto);
+             ProductResponse productResponse = productConverter.convertToDto(product);
+             productResponseList.add(productResponse);
          }
-         return productResponseDtoList;
+         return productResponseList;
     }
 
     @Override
-    public Optional<ProductResponseDto> findById(Long id) {
+    public Optional<ProductResponse> findById(Long id) {
         Product product = productRepository.findById(id).get();
-        ProductResponseDto productResponseDto = productConverter.entityToResponseDto(product);
+        ProductResponse productResponseDto = productConverter.convertToDto(product);
         return Optional.ofNullable(productResponseDto);
     }
 
     @Override
-    public void save(ProductRequestDto productRequestDto) {
+    public List<ProductResponse> findProductListByCategoryId(Long id){
+        List<Product> productList = productRepository.findByCategory_Id(id);
+        ArrayList<ProductResponse> productResponseArrayList = new ArrayList<>();
+        for(Product product : productList){
+            ProductResponse productResponse = productConverter.convertToDto(product);
+            productResponseArrayList.add(productResponse);
+        }
+        return productResponseArrayList;
+    }
+
+    @Override
+    public void save(ProductRequest productRequest) {
          try{
-             Category category = categoryRepository.findById(productRequestDto.getCategoryId())
+             Category category = categoryRepository.findById(productRequest.getCategoryId())
                      .orElseThrow(() -> new IllegalArgumentException("Invalid category id"));
-            Optional<Seller> seller = sellerRepository.findById(productRequestDto.getSellerId());
+            Optional<Seller> seller = sellerRepository.findById(productRequest.getSellerId());
              SellerProduct sellerProduct = new SellerProduct();
              sellerProduct.setSeller(seller.get());//lấy đối tượng
-             Product product = productConverter.requestDtoToEntity(productRequestDto);
+             Product product = productConverter.requestDtoToEntity(productRequest);
              product.setCategory(category);
              Product productSave = productRepository.save(product);
              sellerProduct.setProduct(productSave);
-             if(productRequestDto.getId() == null){
+             if(productRequest.getId() == null){
                  sellerProductRepository.save(sellerProduct);
              }
          }catch (Exception e){

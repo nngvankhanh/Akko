@@ -1,8 +1,10 @@
 package com.akkoeCommerce.converter;
 
-import com.akkoeCommerce.payload.request.ProductRequestDto;
-import com.akkoeCommerce.payload.response.ProductResponseDto;
+import com.akkoeCommerce.payload.request.ProductRequest;
+import com.akkoeCommerce.payload.response.ProductResponse;
 import com.akkoeCommerce.entity.Product;
 
-public interface ProductConverter extends GeneralConverter<Product, ProductRequestDto, ProductResponseDto>{
+public interface ProductConverter{
+    ProductResponse convertToDto(Product product);
+    Product requestDtoToEntity(ProductRequest source);
 }

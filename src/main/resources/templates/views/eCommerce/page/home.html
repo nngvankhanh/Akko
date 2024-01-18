@@ -28,7 +28,7 @@
 
 <body>
 
-    <div th:replace="views/eCommerce/layout::header"></div>
+    <div th:replace="views/eCommerce/component/home/header::header" th:object="${categoryList}"></div>
 
     <!-- Carousel Start -->
     <div class="container-fluid mb-3">
@@ -807,7 +807,7 @@
     </div>
     <!-- Vendor End -->
 
-    <div th:replace="views/eCommerce/layout::footer"></div>
+    <div th:replace="views/eCommerce/component/home/footer::footer"></div>
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

@@ -1,13 +1,14 @@
-package com.akkoeCommerce.payload.response;
+package com.akkoeCommerce.payload.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductResponseDto {
+public class ProductRequest {
     private Long id;
     private String name;
     private int quantity;

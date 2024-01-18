@@ -1,0 +1,1 @@
+INSERT INTO SELLER VALUES (1,'test@gmail.com','Nvk@123');

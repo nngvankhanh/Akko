@@ -1,13 +1,13 @@
 package com.akkoeCommerce.converter;
 
 import com.akkoeCommerce.entity.Seller;
-import com.akkoeCommerce.payload.request.RegisterRequestDto;
-import com.akkoeCommerce.payload.response.RegisterResponseDto;
+import com.akkoeCommerce.payload.request.RegisterRequest;
+import com.akkoeCommerce.payload.response.RegisterResponse;
 
-public interface SellerConverter extends GeneralConverter<Seller, RegisterRequestDto, RegisterResponseDto>{
+public interface SellerConverter extends GeneralConverter<Seller, RegisterRequest, RegisterResponse>{
     @Override
-    RegisterResponseDto entityToResponseDto(Seller source);
+    RegisterResponse entityToResponseDto(Seller source);
 
     @Override
-    Seller requestDtoToEntity(RegisterRequestDto source);
+    Seller requestDtoToEntity(RegisterRequest source);
 }

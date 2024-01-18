@@ -20,17 +20,17 @@ import javax.persistence.Table;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "seller_product")
+@Table(name = "SELLER_PRODUCT")
 public class SellerProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 //    @JsonBackReference
     @ManyToOne(cascade = {CascadeType.PERSIST},fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller_id")
+    @JoinColumn(name = "id_seller")
     Seller seller;
 //    @JsonBackReference
     @ManyToOne(cascade = {CascadeType.PERSIST},fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "id_product")
     Product product;
 }

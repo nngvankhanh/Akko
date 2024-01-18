@@ -4,15 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductRequestDto {
-    private Long id;
-    private String name;
+public class CartRequest {
+    private String size;
+    private String color;
     private int quantity;
-    private Double price;
-    private Long categoryId;
-    private Long sellerId;
 }
